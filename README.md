@@ -3,4 +3,4 @@
 This project contains "demostration" smart contracts to integrate a consortium blockchain within e-learning platform to improve the verifiability, trastworthy and sharing of micro-credentials certificates.
 
 
-![alt text](https://github.com/alessandrobigiotti/micro-credentials-smart-contracts/img/smartcontracttree.png?raw=true)
+![alt text](https://github.com/alessandrobigiotti/micro-credentials-smart-contracts/blob/main/img/smartcontracttree.png?raw=true)
