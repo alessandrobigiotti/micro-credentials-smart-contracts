@@ -9,32 +9,37 @@ contract Candidate {
     address platformAddress;
     string candidateID;
 
-    CourseAttended[] courseList;
-    mapping(string => uint) courseIndex;
+    mapping(string => mapping(string => CourseAttended)) courseAttended;
+
+    CourseAttended[] courseCompleted;
 
     constructor(string memory _candidateID) {
         candidateID = _candidateID;
     }
 
     function courseSubscription(
-        string calldata _institutionID, 
+        string calldata _institutionID,
         string calldata _courseID
     ) public {
         CourseAttended memory course = CourseAttended({
                                             institutionID: _institutionID,
-                                            courseID: _courseID, 
-                                            enrolled: true, 
-                                            timeEnrolled: block.timestamp, 
-                                            passed:false, 
+                                            courseID: _courseID,
+                                            enrolled: true,
+                                            timeEnrolled: block.timestamp,
+                                            passed:false,
                                             timePassed: 0
                                         });
-        courseList.push(course);
-        courseIndex[_courseID] = courseList.length - 1;
+        courseAttended[_institutionID][_courseID] = course;
     }
 
-    function coursePassed(string calldata _courseID) public {
-        courseList[courseIndex[_courseID]].passed = true;
-        courseList[courseIndex[_courseID]].timePassed = block.timestamp;
+    function coursePassed(string calldata _institutionID, string calldata _courseID) public {
+        courseAttended[_institutionID][_courseID].passed = true;
+        courseAttended[_institutionID][_courseID].timePassed = block.timestamp;
+        courseCompleted.push(courseAttended[_institutionID][_courseID]);
+    }
+
+    function verifyExam(string calldata _institutionID, string calldata _courseID) public view returns(bool){
+        return courseAttended[_institutionID][_courseID].passed;
     }
 
     function getStudentInfo() public view returns(string memory) {
@@ -42,6 +47,6 @@ contract Candidate {
     }
 
     function getAllCoursesAttended() public view returns(CourseAttended[] memory) {
-        return courseList;
+        return courseCompleted;
     }
 }

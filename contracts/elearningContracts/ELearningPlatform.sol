@@ -5,28 +5,16 @@ import "./Institution.sol";
 import "./Candidate.sol";
 
 import {InstitutionInfo, CourseInfo, CourseAttended} from "./DataStruct.sol";
-
-interface ICandidateContract {
-    function courseSubscription(string  calldata _institutionID, string calldata _courseID) external;
-    function coursePassed(string calldata _courseID) external;
-    function getAllCoursesAttended() external;
-}
-
-interface IInstitution {
-    function getInstitutionInfo() external view returns(InstitutionInfo memory);
-    function registerCourse(string calldata _courseID, string calldata _courseName, uint _courseYear) external;
-    function getCourseInfo(string calldata _courseID) external view returns(CourseInfo memory);
-    function checkCourse(string calldata _courseID) external view returns(bool);
-}
+import {ICandidateContract, IInstitution} from "./Interfaces.sol";
 
 contract ELearningPlatform {
 
-    event NewInstitutionRegitered(address indexed institutionAddress, string indexed institutionID);
-    event NewCandidateRegistered(string indexed candidateID);
+    event NewInstitution(address indexed institutionAddress, string indexed institutionID);
+    event NewCandidate(string indexed candidateID);
 
-    address public owner;
+    address public ownerPlatform;
     string public platformName;
-    
+
     // Institution data
     address[] institutionsList;
     mapping(string => uint) institutionIndex;
@@ -39,12 +27,12 @@ contract ELearningPlatform {
     mapping(string => bool) candidateRegistered;
 
     modifier ownerPermissions {
-        require(msg.sender == owner);
+        require(msg.sender == ownerPlatform);
       _;
     }
 
     constructor (string memory _platformName) {
-        owner = msg.sender;
+        ownerPlatform = msg.sender;
         platformName = _platformName;
     }
 
@@ -56,7 +44,7 @@ contract ELearningPlatform {
         string memory _country,
         string memory _postecode
     ) public ownerPermissions {
-        require(!checkInstitution(_institutionID), "Error: Institution already registered.");
+        require(!checkInstitution(_institutionID));
         Institution institution = new Institution(
             _instAddress,
             _institutionID,
@@ -68,17 +56,16 @@ contract ELearningPlatform {
 
         institutionsList.push(address(institution));
         institutionIndex[_institutionID] = institutionsList.length - 1;
-        institutionKeys[_institutionID]= _instAddress;
+        institutionKeys[_institutionID] = _instAddress;
         istiturionRegistered[_institutionID] = true;
 
-        emit NewInstitutionRegitered(address(institution), _institutionID);
+        emit NewInstitution(address(institution), _institutionID);
     }
-
 
     function registerCandidate(
         string calldata _candidateID
     ) public ownerPermissions {
-        require(!checkCandidate(_candidateID), "Error: Candidate already registered.");
+        require(!checkCandidate(_candidateID));
 
         Candidate candidate = new Candidate(
             _candidateID
@@ -88,23 +75,44 @@ contract ELearningPlatform {
         candidateIndex[_candidateID] = candidateList.length - 1;
         candidateRegistered[_candidateID] = true;
 
-        emit NewCandidateRegistered(_candidateID);
+        emit NewCandidate(_candidateID);
+    }
+
+    function registerCourse(string calldata _institutionID, string calldata _courseID, string calldata _courseName, uint _courseYear) external {
+        require(checkInstitution(_institutionID));
+        require(msg.sender == institutionKeys[_institutionID]);
+        IInstitution(institutionsList[institutionIndex[_institutionID]]).registerCourse(_courseID, _courseName, _courseYear);
     }
 
     function courseSubscription(string calldata _institutionID, string calldata _courseID, string calldata _candidateID) external {
         require(checkCandidate(_candidateID) && checkInstitution(_institutionID));
         require(IInstitution(institutionsList[institutionIndex[_institutionID]]).checkCourse(_courseID));
+        require(msg.sender == institutionKeys[_institutionID]);
         ICandidateContract(candidateList[candidateIndex[_candidateID]]).courseSubscription(_institutionID, _courseID);
-
     }
 
-    function registerCourse(string calldata _institutionID, string calldata _courseID, string calldata _courseName, uint _courseYear) external {
-        IInstitution(institutionsList[institutionIndex[_institutionID]]).registerCourse(_courseID, _courseName, _courseYear);
+    function passCourse(string calldata _institutionID, string calldata _courseID, string calldata _candidateID) external {
+        require(checkCandidate(_candidateID) && checkInstitution(_institutionID));
+        require(IInstitution(institutionsList[institutionIndex[_institutionID]]).checkCourse(_courseID));
+        require(msg.sender == institutionKeys[_institutionID]);
+        ICandidateContract(candidateList[candidateIndex[_candidateID]]).coursePassed(_institutionID, _courseID);
     }
-
 
     function getCourseInfo(string calldata _institutionID, string calldata _courseID) external view returns(CourseInfo memory) {
         return IInstitution(institutionsList[institutionIndex[_institutionID]]).getCourseInfo(_courseID);
+    }
+
+    function getInstitutionInfo(string calldata _istitutionID) external view returns(InstitutionInfo memory) {
+        return IInstitution(institutionsList[institutionIndex[_istitutionID]]).getInstitutionInfo();
+    }
+
+    function getAllCandidateCourses(string memory _candidateID) external view returns(CourseAttended[] memory) {
+        require(checkCandidate(_candidateID));
+        return ICandidateContract(candidateList[candidateIndex[_candidateID]]).getAllCoursesAttended();
+    }
+
+    function checkExam(string calldata _institutionID, string calldata _courseID, string calldata _candidateID) external view ownerPermissions returns(bool) {
+        return ICandidateContract(candidateList[candidateIndex[_candidateID]]).verifyExam(_institutionID, _courseID);
     }
 
     // Auxiliary functions
@@ -121,19 +129,4 @@ contract ELearningPlatform {
         }
         return false;
     }
-
-    function getInstitutionInfo(string calldata _istitutionID) external view returns(InstitutionInfo memory) {
-        address instAddr = institutionsList[institutionIndex[_istitutionID]];
-        return IInstitution(instAddr).getInstitutionInfo();
-    }
-
-    function getAllCandidateCourses(string calldata _candidateID) external view returns(CourseAttended memory) {
-
-    }
-
-    function checkCandidateCourse(string calldata _candidateID) external view returns(bool) {
-
-    }
-
-
 }

@@ -25,6 +25,3 @@ struct InstitutionInfo {
     string posteCode;
     address[] courses;
 }
-
-
-

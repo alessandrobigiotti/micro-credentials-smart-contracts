@@ -4,9 +4,7 @@ pragma solidity >=0.8.0 <0.9.0;
 import "./Course.sol";
 import {InstitutionInfo, CourseInfo} from "./DataStruct.sol";
 
-interface ICourse{
-    function getCourseInfo() external view returns(CourseInfo memory);
-}
+import {ICourse} from "./Interfaces.sol";
 
 contract Institution {
 
@@ -59,8 +57,8 @@ contract Institution {
         emit NewCourseRegistered(address(course));
     }
 
-    function getInstitutionInfo() public view 
-        returns(InstitutionInfo memory) 
+    function getInstitutionInfo() public view
+        returns(InstitutionInfo memory)
     {
         InstitutionInfo memory info = InstitutionInfo({
             institutionID: institutionID,
@@ -75,6 +73,10 @@ contract Institution {
 
     function getCourseInfo(string calldata _courseID) external view returns(CourseInfo memory) {
         return ICourse(coursesContarcts[courseContractIndexes[_courseID]]).getCourseInfo();
+    }
+
+    function checkCourse(string calldata _courseID) public view returns(bool) {
+        return courseRegistered[_courseID];
     }
 
 }
