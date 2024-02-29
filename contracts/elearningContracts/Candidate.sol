@@ -5,7 +5,9 @@ import {CourseAttended} from "./DataStruct.sol";
 
 contract Candidate {
 
-    address owner;
+    event CourseSubscribed(string _candidateID, string _institutionID, string _courseID);
+    event CourseCompleted(string _candidateID, string _institutionID, string _courseID);
+
     address platformAddress;
     string candidateID;
 
@@ -13,14 +15,16 @@ contract Candidate {
 
     CourseAttended[] courseCompleted;
 
-    constructor(string memory _candidateID) {
+    constructor(string memory _candidateID, address _platformAddress) {
         candidateID = _candidateID;
+        platformAddress = _platformAddress;
     }
 
     function courseSubscription(
         string calldata _institutionID,
         string calldata _courseID
     ) public {
+        require(msg.sender == platformAddress);
         CourseAttended memory course = CourseAttended({
                                             institutionID: _institutionID,
                                             courseID: _courseID,
@@ -30,12 +34,18 @@ contract Candidate {
                                             timePassed: 0
                                         });
         courseAttended[_institutionID][_courseID] = course;
+
+        emit CourseSubscribed(candidateID, _institutionID, _courseID);
     }
 
     function coursePassed(string calldata _institutionID, string calldata _courseID) public {
+        require(msg.sender == platformAddress);
+
         courseAttended[_institutionID][_courseID].passed = true;
         courseAttended[_institutionID][_courseID].timePassed = block.timestamp;
         courseCompleted.push(courseAttended[_institutionID][_courseID]);
+
+        emit CourseCompleted(candidateID, _institutionID, _courseID);
     }
 
     function verifyExam(string calldata _institutionID, string calldata _courseID) public view returns(bool){

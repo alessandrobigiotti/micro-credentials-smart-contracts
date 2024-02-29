@@ -8,9 +8,10 @@ import {ICourse} from "./Interfaces.sol";
 
 contract Institution {
 
-    event NewCourseRegistered(address indexed courseAddress);
+    event NewCourseRegistered(string message, address indexed courseAddress);
 
     address platformAddress;
+    address institutionAddress;
     string institutionID;
     string institutionName;
     string addressLine;
@@ -23,6 +24,7 @@ contract Institution {
 
     constructor(
         address _platformAddress,
+        address _institutionAddress,
         string memory _institutionID,
         string memory _institutionName,
         string memory _addressLine,
@@ -30,6 +32,7 @@ contract Institution {
         string memory _postecode
     ) {
         platformAddress = _platformAddress;
+        institutionAddress = _institutionAddress;
         institutionID = _institutionID;
         institutionName = _institutionName;
         addressLine = _addressLine;
@@ -43,6 +46,7 @@ contract Institution {
         uint _courseYear
 
     ) public {
+        require(msg.sender == platformAddress);
         Course course = new Course(
             platformAddress,
             institutionID,
@@ -54,7 +58,7 @@ contract Institution {
         courseContractIndexes[_courseID] = coursesContarcts.length-1;
         courseRegistered[_courseID] = true;
 
-        emit NewCourseRegistered(address(course));
+        emit NewCourseRegistered("New Course registered!", address(course));
     }
 
     function getInstitutionInfo() public view
