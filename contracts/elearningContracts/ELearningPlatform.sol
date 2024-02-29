@@ -136,6 +136,11 @@ contract ELearningPlatform {
         ICandidateContract(candidateList[candidateIndex[_candidateID]]).coursePassed(_institutionID, _courseID);
     }
 
+    // Verify if an exam is passed by a candidate
+    function checkExam(string calldata _institutionID, string calldata _courseID, string calldata _candidateID) external view ownerPermissions returns(bool) {
+        return ICandidateContract(candidateList[candidateIndex[_candidateID]]).verifyExam(_institutionID, _courseID);
+    }
+    
     // retrieve the course info
     function getCourseInfo(string calldata _institutionID, string calldata _courseID) external view returns(CourseInfo memory) {
         return IInstitution(institutionsList[institutionIndex[_institutionID]]).getCourseInfo(_courseID);
@@ -152,11 +157,6 @@ contract ELearningPlatform {
         require(checkCandidate(_candidateID));
         // retireve all the courses attended by a certain candidate
         return ICandidateContract(candidateList[candidateIndex[_candidateID]]).getAllCoursesAttended();
-    }
-
-    // Verify if an exam is passed by a candidate
-    function checkExam(string calldata _institutionID, string calldata _courseID, string calldata _candidateID) external view ownerPermissions returns(bool) {
-        return ICandidateContract(candidateList[candidateIndex[_candidateID]]).verifyExam(_institutionID, _courseID);
     }
 
     // Verify if an Institution exists

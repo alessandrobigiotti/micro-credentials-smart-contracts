@@ -1,4 +1,6 @@
-# Consortium Blockchain in E-Learning Platform to Improve Verifiability, Trustworthy and Sharing of Micro-Credentials
+# Blockchain in E-Learning Platform to Enhance Trustworthy and Sharing of Micro-Credentials
+
+***Work In Progress...***
 
 This project contains "demonstration" smart contracts to integrate a consortium blockchain within e-learning platform to improve the verifiability, trustworthy and sharing of micro-credentials certificates.
 
@@ -8,6 +10,14 @@ The smart contracts have the structure illustrated in the following picture.
 ![alt text](https://github.com/alessandrobigiotti/micro-credentials-smart-contracts/blob/main/img/smartcontracttree.png?raw=true)
 
 The only access point to the blockchain is the ELearningPlatform smart contract. This smart contract has the task to manage all other smart contracts dynamically.
+
+The main functions contained in the ELearningPlatform.sol are:
+- registerInstitution
+- registerCandidate
+- registerCourse
+- courseSubscription
+- passCourse
+- checkExam
 
 
 ## Project Configuration
