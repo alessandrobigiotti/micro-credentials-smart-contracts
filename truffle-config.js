@@ -1,7 +1,7 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 // The private keys should be stored in another way
-var privateKey = ['PUT YOUR PV KEY HERE'];
+var privateKey = ['PUT YOUR PRIVATE KEY HERE'];
 
 module.exports = {
   /**
@@ -14,10 +14,10 @@ module.exports = {
 
     networks: {
         blockchain: {
-            network_id: "ID CHAIN",
+            network_id: "CHAIN ID",
             gas: "GAS VALUE",
             provider: () => new HDWalletProvider(privateKey, 'URL_BLOCK_CHAIN'),
-            from: 'PUBLIC ADDRESS RELATED TO PRIVATE KEY CHAIN A'
+            from: 'PUBLIC ADDRESS RELATED TO THE PRIVATE KEY'
         },
     },
 

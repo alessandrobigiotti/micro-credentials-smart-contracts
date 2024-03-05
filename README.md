@@ -1,7 +1,5 @@
 # Blockchain in E-Learning Platform to Enhance Trustworthy and Sharing of Micro-Credentials
 
-***Work In Progress...***
-
 This project contains "demonstration" smart contracts to integrate a consortium blockchain within e-learning platform to improve the verifiability, trustworthy and sharing of micro-credentials certificates.
 
 ## Smart Contracts Description
@@ -21,6 +19,13 @@ The main functions contained in the ELearningPlatform.sol are:
 
 ### Functions permissioning
 
+To test smart contracts it is necessary to specify the addresses of the various actors. To this end, the only smart contract with which you can interact is the ```ELearningPlatform.sol``` smart contract. To interact with this smart contract you need:
+  1. the address of the account that deployed it (the owner). Using this address is it possible to register new institutions and / or new Candidates.
+  2. the address of the particular institution. Using the address provided during the registration of an institution, it is possible to add new courses or enrol candidates in the courses it provides.
+
+All the other smart contracts can be modify only by the root smart contract.
+​
+
 
 ## Project Configuration
 
@@ -36,7 +41,7 @@ $ npm install
 ```
 If the installation ends correctly, it is possible to deploy the smart contracts under the contracts folder by executing the *compileDeployContracts.sh* under the scripts folder.
 
-The configuration of the Hyperleder Besu and Hypereldger Fabric goes beyond the purpose of this repository. The reader intended to deploy and test the smart contracts on different platforms can follow the approprite guide [Hyperledger Besu](https://besu.hyperledger.org/23.4.0/private-networks), and [Hyperledger Fabric](https://hyperledger-fabric.readthedocs.io/en/latest/install.html)
+The configuration of the Hyperleder Besu and Hypereldger Fabric goes beyond the purpose of this repository. The reader intended to deploy and test the smart contracts on different platforms can follow the approprite guide [Hyperledger Besu](https://besu.hyperledger.org/23.4.0/private-networks), and [Hyperledger Fabric](https://github.com/hyperledger-archives/fabric-chaincode-evm) for [evm contracts deployment](https://archive.trufflesuite.com/docs/truffle/how-to/distributed-ledger-support/hyperledger-evm/) 
 
 
 ***NOTICE***: If you want to deploy and tests the smart contracts on [Remix](https://remix.ethereum.org) you can create a folder containing all the smart contracts under the contracts folder of this repository. The only smart contract you need to deploy is the *ELearningPlatform.sol* smart contract. Maybe you need to force the deploy as the *ELearningPlatform.sol* bytecode exceeds the maximum dimension allowed by Etherem public blockchain.

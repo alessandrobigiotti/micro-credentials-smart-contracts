@@ -1,7 +1,7 @@
 {
-  "name": "smartlistener",
+  "name": "elearning 4.0",
   "version": "0.1.0",
-  "description": "Smart Listener - inter-chain protocol",
+  "description": "ELearning Platform Smart Contracts",
   "directories": {
     "test": "test"
   },
