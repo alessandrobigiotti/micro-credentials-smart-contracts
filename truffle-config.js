@@ -17,7 +17,8 @@ module.exports = {
             network_id: "CHAIN ID",
             gas: "GAS VALUE",
             provider: () => new HDWalletProvider(privateKey, 'URL_BLOCK_CHAIN'),
-            from: 'PUBLIC ADDRESS RELATED TO THE PRIVATE KEY'
+            from: 'PUBLIC ADDRESS RELATED TO THE PRIVATE KEY'//,
+            // type: "fabric-evm"
         },
     },
 
