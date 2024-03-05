@@ -26,6 +26,6 @@ struct InstitutionInfo {
     string institutionName;
     string addressLine;
     string country;
-    string posteCode;
+    string postCode;
     address[] courses;
 }

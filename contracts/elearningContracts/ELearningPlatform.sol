@@ -44,7 +44,7 @@ contract ELearningPlatform {
         string memory _institutionName,
         string memory _addressLine,
         string memory _country,
-        string memory _postecode
+        string memory _postcode
     ) public ownerPermissions { // Only the owner can add new institutions
         // Check if the institution already exists
         require(!checkInstitution(_institutionID));
@@ -55,7 +55,7 @@ contract ELearningPlatform {
             _institutionName,
             _addressLine,
             _country,
-            _postecode
+            _postcode
         );
 
         institutionsList.push(address(institution));
@@ -140,7 +140,7 @@ contract ELearningPlatform {
     function checkExam(string calldata _institutionID, string calldata _courseID, string calldata _candidateID) external view ownerPermissions returns(bool) {
         return ICandidateContract(candidateList[candidateIndex[_candidateID]]).verifyExam(_institutionID, _courseID);
     }
-    
+
     // retrieve the course info
     function getCourseInfo(string calldata _institutionID, string calldata _courseID) external view returns(CourseInfo memory) {
         return IInstitution(institutionsList[institutionIndex[_institutionID]]).getCourseInfo(_courseID);

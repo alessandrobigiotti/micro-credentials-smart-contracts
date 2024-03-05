@@ -16,7 +16,7 @@ contract Institution {
     string institutionName;
     string addressLine;
     string country;
-    string posteCode;
+    string postCode;
 
     address[] coursesContarcts;
     mapping(string => uint) public courseContractIndexes;
@@ -29,7 +29,7 @@ contract Institution {
         string memory _institutionName,
         string memory _addressLine,
         string memory _country,
-        string memory _postecode
+        string memory _postcode
     ) {
         platformAddress = _platformAddress;
         institutionAddress = _institutionAddress;
@@ -37,7 +37,7 @@ contract Institution {
         institutionName = _institutionName;
         addressLine = _addressLine;
         country = _country;
-        posteCode = _postecode;
+        postCode = _postcode;
     }
 
     function registerCourse(
@@ -69,7 +69,7 @@ contract Institution {
             institutionName: institutionName,
             addressLine: addressLine,
             country: country,
-            posteCode: posteCode,
+            postCode: postCode,
             courses: coursesContarcts
         });
         return info;
