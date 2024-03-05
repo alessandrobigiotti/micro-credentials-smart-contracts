@@ -41,7 +41,7 @@ $ npm install
 ```
 If the installation ends correctly, it is possible to deploy the smart contracts under the contracts folder by executing the *compileDeployContracts.sh* under the scripts folder.
 
-The configuration of the Hyperleder Besu and Hypereldger Fabric goes beyond the purpose of this repository. The reader intended to deploy and test the smart contracts on different platforms can follow the approprite guide [Hyperledger Besu](https://besu.hyperledger.org/23.4.0/private-networks), and [Hyperledger Fabric](https://github.com/hyperledger-archives/fabric-chaincode-evm) for [evm contracts deployment](https://archive.trufflesuite.com/docs/truffle/how-to/distributed-ledger-support/hyperledger-evm/) 
+The configuration of the Hyperleder Besu and Hypereldger Fabric goes beyond the purpose of this repository. The reader intended to deploy and test the smart contracts on different platforms can follow the approprite guide [Hyperledger Besu](https://besu.hyperledger.org/23.4.0/private-networks), and [Hyperledger Fabric](https://github.com/hyperledger-archives/fabric-chaincode-evm) for [evm contracts deployment](https://archive.trufflesuite.com/docs/truffle/how-to/distributed-ledger-support/hyperledger-evm/).
 
 
 ***NOTICE***: If you want to deploy and tests the smart contracts on [Remix](https://remix.ethereum.org) you can create a folder containing all the smart contracts under the contracts folder of this repository. The only smart contract you need to deploy is the *ELearningPlatform.sol* smart contract. Maybe you need to force the deploy as the *ELearningPlatform.sol* bytecode exceeds the maximum dimension allowed by Etherem public blockchain.
