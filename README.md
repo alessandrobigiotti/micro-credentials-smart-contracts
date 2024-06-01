@@ -44,7 +44,7 @@ The configuration of the Hyperleder Besu goes beyond the purpose of this reposit
 
 ***NOTICE***: If you want to deploy and tests the smart contracts on [Remix](https://remix.ethereum.org) you can create a folder containing all the smart contracts under the contracts folder of this repository. The only smart contract you need to deploy is the *ELearningPlatform.sol* smart contract. Maybe you need to force the deploy as the *ELearningPlatform.sol* bytecode exceeds the maximum dimension allowed by Ethereum public blockchain.
 
-## Refenrence
+## Reference
 The content can be used to conduct research or provide further testing and use cases. Please be careful to cite the source from which this work comes:
 
 Plain:
