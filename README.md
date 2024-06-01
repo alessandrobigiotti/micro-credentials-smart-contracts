@@ -1,6 +1,6 @@
 # Blockchain in E-Learning Platform to Enhance Trustworthy and Sharing of Micro-Credentials
 
-This project contains "demonstration" smart contracts to integrate a consortium blockchain within e-learning platform to improve the verifiability, trustworthy and sharing of micro-credentials certificates.
+This project contains "demonstration" smart contracts to integrate a consortium blockchain within e-learning platform to improve the verifiability, trustworthy and sharing of micro-credentials certificates. The source code refers to the publication [Blockchain in E-Learning Platform to Enhance Trustworthy and Sharing of Micro-credentials](https://link.springer.com/chapter/10.1007/978-3-031-61003-5_1)
 
 ## Smart Contracts Description
 
@@ -43,6 +43,28 @@ The configuration of the Hyperleder Besu goes beyond the purpose of this reposit
 
 
 ***NOTICE***: If you want to deploy and tests the smart contracts on [Remix](https://remix.ethereum.org) you can create a folder containing all the smart contracts under the contracts folder of this repository. The only smart contract you need to deploy is the *ELearningPlatform.sol* smart contract. Maybe you need to force the deploy as the *ELearningPlatform.sol* bytecode exceeds the maximum dimension allowed by Ethereum public blockchain.
+
+## Refenrence
+The content can be used to conduct research or provide further testing and use cases. Please be careful to cite the source from which this work comes:
+
+Plain:
+
+Bigiotti, A., Bottoni, M. P. F., and Nalli, G. "*Blockchain in e-learning platform to enhance trustworthy and sharing of micro-credentials*". In Advanced Information Systems Engineering Workshops (Cham, 2024), J. P. A. Almeida, C. Di Ciccio, and C. Kalloniatis, Eds., Springer Nature Switzerland, pp. 5–17.
+
+Bibtex:
+```
+@InProceedings{10.1007/978-3-031-61003-5_1,
+    author={Bigiotti, Alessandro and Bottoni, Maria Paola Francesca and Nalli, Giacomo},
+    editor={Almeida, Jo{\~a}o Paulo A. and Di Ciccio, Claudio and Kalloniatis, Christos},
+    title={Blockchain in E-Learning Platform to Enhance Trustworthy and Sharing of Micro-credentials},
+    booktitle={Advanced Information Systems Engineering Workshops},
+    year={2024},
+    publisher={Springer Nature Switzerland},
+    address={Cham},
+    pages={5--17},
+    isbn={978-3-031-61003-5}
+}
+```
 
 ## Disclaimer
 THIS SOFTWARE IS PROVIDED AS IS WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
